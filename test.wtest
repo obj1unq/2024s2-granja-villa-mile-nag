@@ -1,5 +1,71 @@
+import hector.*
+import granja.*
+import wollok.game.*
+
 describe "test del juego de hector" {
-  test "hector planta una de cada una de las plantas disponibles" {
-    
+  test "hector puede sembrar un solo cultivo por parcela" {
+    hector.sembrarMaiz()
+    assert.that(granja.hayUnaPlantaEn(hector.position()))
+    assert.throwsException({ hector.sembrarTrigo() })
   }
+
+  test "hector siembra cada cultivo en una parcela distinta y la granja las recuerda, además 
+        las riega y el tomaco cambia de posición"{
+    //sembrar y moverse
+    hector.position(game.at(0,0))
+    hector.sembrarMaiz()
+    hector.position(game.at(0,1))
+    hector.sembrarTrigo()
+    hector.position(game.at(0,2))
+    hector.sembrarTomaco()
+
+    //regar
+    hector.position(game.at(0,0))
+    hector.regar()
+    hector.position(game.at(0,1))
+    hector.regar()
+    hector.position(game.at(0,2))
+    hector.regar()
+
+    //chequear que las plantas existan, la granja las conozca y el tomaco haya cambiado de lugar.
+    assert.that(granja.hayUnaPlantaEn(game.at(0,0)))
+    assert.that(granja.hayUnaPlantaEn(game.at(0,1)))
+    assert.that(granja.hayUnaPlantaEn(game.at(0,3)))
+  }
+
+  test "hector puede cosechar solo el maiz y el tomaco porque no regó el trigo, 
+        después puede responder que tiene 0 de oro y dos plantas para vender, 
+        si las vende, nos devuelve la cantidad de oro generado y que ya no tiene plantas para vender" {
+
+    //sembrar y moverse
+    hector.position(game.at(3,5))
+    hector.sembrarMaiz()
+    hector.position(game.at(3,6))
+    hector.sembrarTrigo()
+    hector.position(game.at(3,7))
+    hector.sembrarTomaco()
+
+    //regar
+    hector.position(game.at(3,5))
+    hector.regar()
+
+    // cosechar sólo el tomaco y el maiz
+    hector.position(game.at(3,5))
+    hector.cosechar()
+    hector.position(game.at(3,6))
+    assert.throwsException({ hector.cosechar() }) //error, no puede cosechar el trigo porque no lo regó
+    hector.position(game.at(3,7))
+    hector.cosechar()
+
+    //chequear las plantas para vender y el oro actual
+    assert.that(hector.cuantasPlantasTieneParaVender() == 2)
+    assert.equals(0, hector.plata())
+
+    //vender
+    hector.vender()
+    assert.that(hector.cuantasPlantasTieneParaVender() == 0)
+    assert.equals(230, hector.plata())
+
+  }
+  
 }
