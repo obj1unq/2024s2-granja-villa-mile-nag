@@ -105,4 +105,6 @@ Cada mercado tiene una cantidad de monedas, y mercadería para vender.
 Hacer que Héctor solamente pueda vender si está en un mercado, y además el mercado tiene suficiente cantidad de monedas para pagar lo que Héctor tiene para vender. En tal caso, la mercadería se agrega al mercado, y se le descuentan las monedas que le da a Héctor en pago.  
 
 ## TESTEO DE JUEGOS
-Aclaración: Al no poder testearse los onTick, onPressDo etc. se simula testeando el modelo, o sea, las ordenes que se usan en dichos bloques de código.
+Aclaración: Al no poder testearse los onTick, onPressDo etc.
+ se simula testeando el modelo, 
+o sea, las ordenes que se usan en dichos bloques de código.
