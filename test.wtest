@@ -33,9 +33,9 @@ describe "test del juego de hector" {
     assert.that(granja.hayUnaPlantaEn(game.at(0,3)))
   }
 
-  test "hector puede cosechar solo el maiz y el tomaco porque no regó el trigo, 
-        después puede responder que tiene 0 de oro y dos plantas para vender, 
-        si las vende, nos devuelve la cantidad de oro generado y que ya no tiene plantas para vender" {
+  test "hector puede cosechar solo el maiz y el tomaco porque no regó el trigo, después puede responder
+        que tiene 0 de oro y dos plantas para vender y si las vende, nos devuelve la cantidad de oro 
+        generado y que ya no tiene plantas para vender" {
 
     //sembrar y moverse
     hector.position(game.at(3,5))
